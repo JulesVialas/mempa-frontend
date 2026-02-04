@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  client:
+    build: .
+    container_name: mempa-client
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
