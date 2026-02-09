@@ -1,0 +1,125 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-container">
+
+  <!-- Section des filtres -->
+  <div class="filters-section">
+    <h2>Playlists</h2>
+
+    <div class="filters-controls">
+      <!-- Barre de recherche -->
+      <mat-form-field class="search-field">
+        <mat-label>Rechercher une playlist</mat-label>
+        <input matInput [(ngModel)]="searchTerm" (ngModelChange)="applyFiltersAndSort()" placeholder="Nom, créateur, style...">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <!-- Filtre par style -->
+      <mat-form-field class="style-filter">
+        <mat-label>Style musical</mat-label>
+        <mat-select [(ngModel)]="selectedStyle" (ngModelChange)="applyFiltersAndSort()">
+          <mat-option value="all">Tous les styles</mat-option>
+          <mat-option *ngFor="let style of styles" [value]="style">{{ style }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Chips de tri -->
+    <div class="sort-chips">
+      <span class="sort-label">Trier par :</span>
+      <mat-chip-set>
+        <mat-chip (click)="changeSortBy('nom')" [highlighted]="sortBy === 'nom'">
+          Nom {{ sortBy === 'nom' ? (sortOrder === 'asc' ? '↑' : '↓') : '' }}
+        </mat-chip>
+        <mat-chip (click)="changeSortBy('style')" [highlighted]="sortBy === 'style'">
+          Style {{ sortBy === 'style' ? (sortOrder === 'asc' ? '↑' : '↓') : '' }}
+        </mat-chip>
+        <mat-chip (click)="changeSortBy('nbre_clics')" [highlighted]="sortBy === 'nbre_clics'">
+          Popularité {{ sortBy === 'nbre_clics' ? (sortOrder === 'asc' ? '↑' : '↓') : '' }}
+        </mat-chip>
+        <mat-chip (click)="changeSortBy('nom_createur')" [highlighted]="sortBy === 'nom_createur'">
+          Créateur {{ sortBy === 'nom_createur' ? (sortOrder === 'asc' ? '↑' : '↓') : '' }}
+        </mat-chip>
+      </mat-chip-set>
+    </div>
+
+    <!-- Compteur de résultats -->
+    <div class="results-count" *ngIf="!loading && !error">
+      {{ filteredPlaylists.length }} playlist{{ filteredPlaylists.length > 1 ? 's' : '' }} trouvée{{ filteredPlaylists.length > 1 ? 's' : '' }}
+    </div>
+  </div>
+
+  <!-- Message de chargement -->
+  <div class="loading-message" *ngIf="loading">
+    <mat-icon>refresh</mat-icon>
+    <p>Chargement des playlists...</p>
+  </div>
+
+  <!-- Message d'erreur -->
+  <div class="error-message" *ngIf="error">
+    <mat-icon>error</mat-icon>
+    <p>{{ error }}</p>
+    <button mat-raised-button color="primary" (click)="loadPlaylists()">
+      <mat-icon>refresh</mat-icon>
+      Réessayer
+    </button>
+  </div>
+
+  <!-- Grille de playlists -->
+  <div class="playlists-grid" *ngIf="!loading && !error">
+
+    <!-- Message si aucune playlist -->
+    <div class="no-results" *ngIf="filteredPlaylists.length === 0">
+      <mat-icon>library_music</mat-icon>
+      <p>Aucune playlist ne correspond à vos critères de recherche.</p>
+    </div>
+
+    <!-- Cards des playlists -->
+    <mat-card *ngFor="let p of filteredPlaylists" class="playlist-card">
+
+      <mat-card-header>
+        <div mat-card-avatar class="playlist-avatar">
+          <mat-icon>music_note</mat-icon>
+        </div>
+        <mat-card-title>{{ p.nom }}</mat-card-title>
+        <mat-card-subtitle>{{ p.style }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="playlist-info">
+          <div class="info-item">
+            <mat-icon>person</mat-icon>
+            <span>{{ p.nom_createur }}</span>
+          </div>
+          <div class="info-item">
+            <mat-icon>mouse</mat-icon>
+            <span>{{ p.nbre_clics }} clics</span>
+          </div>
+          <div class="info-item" *ngIf="p.contributeurs && p.contributeurs.length > 0">
+            <mat-icon>group</mat-icon>
+            <span>{{ p.contributeurs.length }} contributeur{{ p.contributeurs.length > 1 ? 's' : '' }}</span>
+          </div>
+        </div>
+        <div class="contributors" *ngIf="p.contributeurs && p.contributeurs.length > 0">
+          <small>{{ p.contributeurs.join(', ') }}</small>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-button color="primary">
+          <mat-icon>visibility</mat-icon>
+          Voir
+        </button>
+        <button mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button>
+          <mat-icon>share</mat-icon>
+        </button>
+      </mat-card-actions>
+
+    </mat-card>
+
+  </div>
+
+</div>

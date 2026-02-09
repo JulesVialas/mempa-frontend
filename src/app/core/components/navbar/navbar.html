@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+  <span style="cursor: pointer; user-select: none;" routerLink="/dashboard">MEMPA</span>
+  <span style="flex: 1 1 auto;"></span>
+  <button mat-button routerLink="/create-playlist">
+    <mat-icon>library_music</mat-icon>
+    Creer
+  </button>
+  <button mat-icon-button (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
