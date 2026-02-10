@@ -1,0 +1,19 @@
+<div class="login-container">
+  <h2>Connexion</h2>
+
+  <div>
+    <label for="pseudo">Pseudo :</label>
+    <input type="text" id="pseudo" #pseudoInput (blur)="isPseudoOk(pseudoInput.value)" placeholder="Ex: Batman">
+  </div>
+
+  <div *ngIf="isUserValid">
+    <div>
+      <label for="mdp">Mot de passe :</label>
+      <input type="password" id="mdp" #mdpInput placeholder="Votre mot de passe">
+    </div>
+    <button>
+      Se connecter
+    </button>
+  </div>
+  <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+</div>
