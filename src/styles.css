@@ -1,0 +1,329 @@
+/**
+ * styles.css        12/02/2026
+ * MIAGE de Toulouse, pas de copyright
+ * Styles globaux de l'application MEMPA
+ */
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* Variables */
+:root {
+  --primary: #3f51b5;
+  --primary-dark: #303f9f;
+  --text: #212121;
+  --text-light: #757575;
+  --text-muted: #9e9e9e;
+  --bg: #fafafa;
+  --white: #ffffff;
+  --border: #e0e0e0;
+  --hover: #f5f5f5;
+  --error: #d32f2f;
+  --radius: 8px;
+}
+
+/* Base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Layout */
+.dashboard-container,
+.playlist-detail-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* États */
+.loading-message,
+.error-message,
+.no-results,
+.empty-morceaux {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-light);
+}
+
+.loading-message mat-icon,
+.error-message mat-icon,
+.no-results mat-icon,
+.empty-morceaux mat-icon {
+  font-size: 56px;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+
+.error-message {
+  color: var(--error);
+}
+
+/* Dashboard - Filtres */
+.filters-section h2 {
+  margin: 0 0 20px;
+  font-weight: 400;
+  font-size: 28px;
+}
+
+.filters-controls {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.search-field {
+  flex: 1;
+  min-width: 260px;
+}
+
+.style-filter {
+  min-width: 180px;
+}
+
+.sort-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.sort-label {
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+.results-count {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+/* Dashboard - Grille */
+.playlists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.playlist-card {
+  border-radius: var(--radius);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.playlist-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.playlist-avatar {
+  background: var(--primary);
+  border-radius: 6px;
+}
+
+.playlist-avatar mat-icon {
+  color: var(--white);
+}
+
+.playlist-info {
+  margin-top: 12px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+
+.info-item mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  opacity: 0.6;
+}
+
+/* Détail - Retour */
+.back-section {
+  margin-bottom: 20px;
+}
+
+/* Détail - Header */
+.playlist-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 32px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-radius: var(--radius);
+  color: var(--white);
+  margin-bottom: 24px;
+}
+
+.playlist-icon {
+  width: 120px;
+  height: 120px;
+  background: rgba(255,255,255,0.15);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.playlist-icon mat-icon {
+  font-size: 60px;
+  width: 60px;
+  height: 60px;
+}
+
+.playlist-title-section h1 {
+  margin: 0 0 12px;
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.playlist-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.playlist-meta mat-chip {
+  background: rgba(255,255,255,0.2) !important;
+  color: var(--white) !important;
+}
+
+.meta-separator {
+  opacity: 0.5;
+}
+
+.edit-button {
+  color: var(--white);
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.edit-button:hover {
+  opacity: 1;
+}
+
+/* Détail - Morceaux */
+.morceaux-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.morceaux-card mat-card-content {
+  padding: 0;
+}
+
+.morceaux-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.morceaux-table th {
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--hover);
+  border-bottom: 1px solid var(--border);
+}
+
+.morceaux-table td {
+  padding: 14px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.morceaux-table tr:last-child td {
+  border-bottom: none;
+}
+
+.morceaux-table tr:hover td {
+  background: var(--hover);
+}
+
+.col-index {
+  width: 50px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.col-titre {
+  font-weight: 500;
+}
+
+.col-artiste {
+  color: var(--text-light);
+}
+
+/* Détail - Footer */
+.playlist-footer {
+  display: flex;
+  gap: 24px;
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .dashboard-container,
+  .playlist-detail-container {
+    padding: 16px;
+  }
+
+  .playlists-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .playlist-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px;
+  }
+
+  .playlist-icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  .playlist-icon mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .playlist-title-section h1 {
+    font-size: 24px;
+  }
+
+  .playlist-meta {
+    justify-content: center;
+  }
+
+  .playlist-footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
