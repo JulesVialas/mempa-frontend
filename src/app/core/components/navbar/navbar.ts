@@ -4,29 +4,31 @@
  */
 
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
-
-@Component({
-  selector: 'app-navbar',
-  imports: [
-    MatToolbar,
-    MatButton,
-    MatIconButton,
-    MatIcon,
-    RouterLink
-  ],
-  templateUrl: './navbar.html',
-})
 
 /**
  * Composant pour la barre de navigation
  */
+@Component({
+  selector: 'app-navbar',
+  imports: [
+    RouterLink,
+    MatToolbar,
+    MatButton,
+    MatIconButton,
+    MatIcon
+  ],
+  templateUrl: './navbar.html'
+})
 export class Navbar {
 
-  protected logout() {
-    //TODO
+  /**
+   * Déconnecte l'utilisateur
+   */
+  logout(): void {
+    // TODO: Implémenter la déconnexion
   }
 }
