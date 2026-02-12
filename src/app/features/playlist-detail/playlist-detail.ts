@@ -14,7 +14,7 @@ import { Morceau } from '../../core/models/morceau.model';
 import { Navbar } from '../../core/components/navbar/navbar';
 
 import { MatIcon } from '@angular/material/icon';
-import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatChip } from '@angular/material/chips';
 
@@ -27,7 +27,6 @@ import { MatChip } from '@angular/material/chips';
     Navbar,
     MatIcon,
     MatButton,
-    MatIconButton,
     MatCard,
     MatCardContent,
     MatChip

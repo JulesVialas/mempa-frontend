@@ -212,16 +212,6 @@ body {
   opacity: 0.5;
 }
 
-.edit-button {
-  color: var(--white);
-  opacity: 0.8;
-  transition: opacity 0.2s;
-}
-
-.edit-button:hover {
-  opacity: 1;
-}
-
 /* Détail - Morceaux */
 .morceaux-card {
   border-radius: var(--radius);
