@@ -1,0 +1,99 @@
+<app-navbar></app-navbar>
+
+<div class="playlist-detail-container">
+
+  <!-- Bouton retour -->
+  <div class="back-section">
+    <button mat-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Retour aux playlists
+    </button>
+  </div>
+
+  <!-- Message de chargement -->
+  @if (loading) {
+    <div class="loading-message">
+      <mat-icon>refresh</mat-icon>
+      <p>Chargement de la playlist...</p>
+    </div>
+  }
+
+  <!-- Message d'erreur -->
+  @if (error) {
+    <div class="error-message">
+      <mat-icon>error</mat-icon>
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Retour
+      </button>
+    </div>
+  }
+
+  <!-- Détails de la playlist -->
+  @if (!loading && !error && playlist) {
+    <div class="playlist-content">
+
+      <!-- En-tête de la playlist -->
+      <div class="playlist-header">
+        <div class="playlist-icon">
+          <mat-icon>library_music</mat-icon>
+        </div>
+        <div class="playlist-title-section">
+          <h1>{{ playlist.nom }}</h1>
+          <div class="playlist-meta">
+            <mat-chip>{{ playlist.style }}</mat-chip>
+            <span class="meta-separator">•</span>
+            <span class="meta-info">{{ playlist.nom_createur ?? 'Inconnu' }}</span>
+            <span class="meta-separator">•</span>
+            <span class="meta-info">{{ morceaux.length }} morceau{{ morceaux.length > 1 ? 'x' : '' }}</span>
+            <span class="meta-separator">•</span>
+            <span class="meta-info">{{ playlist.nbre_clics }} clics</span>
+          </div>
+        </div>
+        <button mat-icon-button class="edit-button">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+
+      <!-- Liste des morceaux -->
+      <mat-card class="morceaux-card">
+        <mat-card-content>
+          @if (morceaux.length === 0) {
+            <div class="empty-morceaux">
+              <mat-icon>music_off</mat-icon>
+              <p>Aucun morceau dans cette playlist pour le moment.</p>
+            </div>
+          } @else {
+            <table class="morceaux-table">
+              <thead>
+                <tr>
+                  <th class="col-index">#</th>
+                  <th class="col-titre">Titre</th>
+                  <th class="col-artiste">Artiste</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (morceau of morceaux; track morceau.id; let i = $index) {
+                  <tr class="morceau-row">
+                    <td class="col-index">{{ i + 1 }}</td>
+                    <td class="col-titre">{{ morceau.titre }}</td>
+                    <td class="col-artiste">{{ morceau.artiste }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Informations supplémentaires -->
+      <div class="playlist-footer">
+        <span class="footer-info">Créée le {{ formatDate(playlist.date_creation) }}</span>
+        <span class="footer-info">Modifiée le {{ formatDate(playlist.date_modification) }}</span>
+      </div>
+
+    </div>
+  }
+
+</div>
