@@ -30,4 +30,12 @@ export class PlaylistService {
   getPlaylists(): Observable<Playlist[]> {
     return this.http.get<Playlist[]>(this.apiUrl);
   }
+
+  /**
+   * Crée une nouvelle playlist en envoyant les données à l'API
+   * @param playlist
+   */
+  createPlaylist(playlist: Partial<Playlist>): Observable<Playlist> {
+    return this.http.post<Playlist>(this.apiUrl, playlist);
+  }
 }
