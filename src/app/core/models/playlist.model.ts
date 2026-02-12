@@ -12,6 +12,7 @@ export interface Playlist {
   style: string;
   nbre_clics: number;
   createur_id: number;
-  nom_createur: string;
-  contributeurs?: string[];
+  date_creation: string;
+  date_modification: string;
+  nom_createur?: string;
 }
