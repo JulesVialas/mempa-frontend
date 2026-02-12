@@ -1,5 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+/**
+ * dashboard.spec.ts        05/02/2026
+ * MIAGE de Toulouse, pas de copyright
+ */
 
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 import { Dashboard } from './dashboard';
 
 describe('Dashboard', () => {
@@ -8,13 +14,15 @@ describe('Dashboard', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Dashboard]
-    })
-    .compileComponents();
+      imports: [Dashboard],
+      providers: [
+        provideHttpClient(),
+        provideRouter([])
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Dashboard);
     component = fixture.componentInstance;
-    await fixture.whenStable();
   });
 
   it('should create', () => {
