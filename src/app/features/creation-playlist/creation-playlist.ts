@@ -54,8 +54,12 @@
             this.router.navigate(['/dashboard']); // Redirection après succès
           },
           error: (err) => {
-            this.snackBar.open('Erreur lors de la création', 'Fermer');
-            console.error('Erreur creation playlist :', err);
+            const errorMessage = err.error?.message || err.error?.error || 'Erreur lors de la création';
+
+            this.snackBar.open(errorMessage, 'Fermer', {
+              duration: 5000,
+            });
+            console.error('Détail de l\'erreur :', err);
           }
         });
       }
