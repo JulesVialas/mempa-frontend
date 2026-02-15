@@ -3,7 +3,7 @@
 
   <div>
     <label for="pseudo">Pseudo :</label>
-    <input type="text" id="pseudo" #pseudoInput (blur)="isPseudoOk(pseudoInput.value)" placeholder="Ex: Batman">
+    <input type="text" id="pseudo" #pseudoInput (blur)="isPseudoOk(pseudoInput.value)" (keydown.enter)="isPseudoOk(pseudoInput.value)" placeholder="Ex: Batman">
   </div>
 
   <div *ngIf="isUserValid">
@@ -11,7 +11,7 @@
       <label for="mdp">Mot de passe :</label>
       <input type="password" id="mdp" #mdpInput placeholder="Votre mot de passe">
     </div>
-    <button>
+    <button (click)="login(pseudoInput.value, mdpInput.value)">
       Se connecter
     </button>
   </div>

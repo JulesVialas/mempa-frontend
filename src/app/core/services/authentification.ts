@@ -10,7 +10,13 @@ export class Authentification {
 
   constructor(private http: HttpClient) { }
 
-  login(pseudo: string): Observable<any> {
+  verifyPseudo(pseudo: string): Observable<any> {
     return this.http.get(this.apiUrl + '?pseudo=' + pseudo);
+  }
+  verifyPassword(pseudo : string, password: string): Observable<any>{
+    return this.http.post(this.apiUrl + '/login', {
+      pseudo: pseudo,
+      password: password,
+    });
   }
 }

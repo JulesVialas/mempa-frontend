@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Authentification } from "../../core/services/authentification";
 
-
+/**
+ * Composant d'authentification des utilisateurs.
+ */
 @Component({
   selector: 'app-authentification',
   standalone: true,
@@ -12,6 +14,7 @@ import { Authentification } from "../../core/services/authentification";
   templateUrl: './authentification.html',
   styleUrl: './authentification.css'
 })
+
 export class AuthentificationComponent {
   errorMessage: string = '';
   isUserValid: boolean = false;
@@ -19,7 +22,7 @@ export class AuthentificationComponent {
   constructor(
     private authService: Authentification,
     private router: Router,
-    private cd: ChangeDetectorRef // <--- AJOUTE ÇA
+    private cd: ChangeDetectorRef
   ) {}
 
   // Fonction pour vérifier le pseudo
@@ -29,11 +32,10 @@ export class AuthentificationComponent {
       return;
     }
 
-    this.authService.login(pseudo).subscribe({
+    this.authService.verifyPseudo(pseudo).subscribe({
       next: (data) => {
         if (data) {
           this.isUserValid = true;
-          this.errorMessage = "";
         } else {
           this.isUserValid = false;
           this.errorMessage = "Pseudo inconnu.";
@@ -50,5 +52,21 @@ export class AuthentificationComponent {
         this.cd.detectChanges();
       }
     });
+  }
+  login(pseudo: string  , password: string) {
+    this.authService.verifyPassword(pseudo, password).subscribe({
+      next: (data) => {
+        if (data) {
+          console.log("login success", data.token);
+          localStorage.setItem("token", data.token);
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.errorMessage = "Mot de passe incorrect.";
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
   }
 }
